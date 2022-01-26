@@ -1,0 +1,58 @@
+spring:
+  profiles:
+    active: ${backend}
+
+  application:
+    name: cloudconfig
+
+server:
+  port: ${port:8888}
+
+---
+spring:
+  application:
+    name: cloudconfig
+
+  config:
+    activate:
+      on-profile: git
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${git.uri:${git.url}}
+          username: ${git.username:}
+          password: ${git.password:}
+          basedir: ${git.basedir:}
+          default-label: ${git.default-label:${git.branch}}
+          host-key: ${git.host-key:}
+          host-key-algorithm: ${git.host-key-algorithm:}
+          private-key: ${git.private-key:}
+          search-paths: ${git.search-paths:}
+          refresh-rate: ${git.refresh-rate:0}
+          preferred-authentications: ${git.preferred-authentications:password,publickey}
+          strict-host-key-checking: ${git.strict-host-key-checking:false}
+          ignore-local-ssh-settings: ${git.ignore-local-ssh-settings:false}
+          delete-untracked-branches: ${git.delete-untracked-branches:true}
+          force-pull: ${git.force-pull:true}
+          try-master-branch: ${git.try-master-branch:true}
+          clone-on-start: ${git.clone-on-start:true}
+          clone-submodules: ${git.clone-submodules:false}
+          timeout: ${git.timeout:5}
+
+---
+spring:
+  application:
+    name: cloudconfig
+
+  config:
+    activate:
+      on-profile: native
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: ${native.path:file:./config}
+          add-label-locations: ${native.add-label-locations:true}
