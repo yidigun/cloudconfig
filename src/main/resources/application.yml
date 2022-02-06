@@ -1,18 +1,14 @@
 spring:
-  profiles:
-    active: ${backend}
-
   application:
     name: cloudconfig
+  profiles:
+    active: ${backend}
 
 server:
   port: ${port:8888}
 
 ---
 spring:
-  application:
-    name: cloudconfig
-
   config:
     activate:
       on-profile: git
@@ -43,9 +39,6 @@ spring:
 
 ---
 spring:
-  application:
-    name: cloudconfig
-
   config:
     activate:
       on-profile: native
@@ -56,3 +49,18 @@ spring:
         native:
           search-locations: ${native.path:file:./config}
           add-label-locations: ${native.add-label-locations:true}
+
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: rabbitmq
+#
+#  bus:
+#    enabled: true
+#
+#  rabbitmq:
+#    host: ${rabbitmq.host:localhost}
+#    port: ${rabbitmq.port:5672}
+#    username: ${rabbitmq.username}
+#    password: ${rabbitmq.password}
